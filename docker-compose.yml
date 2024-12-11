@@ -6,8 +6,6 @@ services:
       context: ./svm_service
     container_name: svm_service
     image: devops-app/svm-service:latest
-    volumes:
-      - shared_volume:/Nouvarch/shared_volume
     ports:
       - "5001:5001"
 
@@ -16,8 +14,6 @@ services:
       context: ./vgg19_service
     container_name: vgg_service
     image: devops-app/vgg19-service:latest
-    volumes:
-      - shared_volume:/Nouvarch/shared_volume
     ports:
       - "5002:5002"
 
@@ -26,8 +22,6 @@ services:
       context: ./frontend
     container_name: frontend
     image: devops-app/frontend:latest
-    volumes:
-      - shared_volume:/Nouvarch/shared_volume
     ports:
       - "5000:5000"
     environment:
@@ -35,6 +29,3 @@ services:
     depends_on:
       - svm_service
       - vgg19_service
-
-volumes:
-  shared_volume:

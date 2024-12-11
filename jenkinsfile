@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        SHARED_VOLUME = "C:\\Nouvarch\\shared_volume"
         REPORT_DIR = 'reports' 
     }
 
