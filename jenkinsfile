@@ -1,10 +1,8 @@
 pipeline {
     agent any
-
     environment {
         REPORT_DIR = 'reports' 
     }
-
     stages {
         stage('Setup') {
             steps {
@@ -21,12 +19,10 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                echo 'Installing Python dependencies from requirements.txt...'
                 bat """
                     docker run --rm -v %WORKSPACE%\\svm_service:/app devops-app/svm-service:latest ^
                         pip install -r /app/requirements.txt
                 """
-                echo 'Installing Python dependencies from requirements.txt...'
                 bat """
                     docker run --rm -v %WORKSPACE%\\vgg19_service:/app devops-app/vgg19-service:latest ^
                         pip install -r /app/requirements.txt
@@ -35,7 +31,6 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                echo 'Starting unit tests for SVM Service...'
                 echo 'Running tests for SVM Service located at /app/tests/test_svm.py'    
                 bat """
                     docker run --rm -v "%WORKSPACE%/SVM_service:/app" -v "%WORKSPACE%/reports:/reports" devops-app/svm-service:latest ^
@@ -43,7 +38,6 @@ pipeline {
                 """
                 echo 'Finished running unit tests for SVM Service. Check reports/test_svm_results.xml for output.'
 
-                echo 'Starting unit tests for VGG19 Service...'
                 echo 'Running tests for VGG19 Service located at /app/tests/test_vgg.py'
                 bat """
                     docker run --rm -v "%WORKSPACE%/VGG19_service:/app" -v "%WORKSPACE%/reports:/reports" devops-app/vgg19-service:latest ^
@@ -73,12 +67,7 @@ pipeline {
             }
         }
     }
-
     post {
-        // always {
-        //     echo 'Cleaning up...'
-        //     bat 'docker-compose -f docker-compose.yml down'
-        // }
         success {
             echo 'Pipeline completed successfully!'
         }
