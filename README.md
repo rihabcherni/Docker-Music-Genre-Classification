@@ -102,7 +102,7 @@ project-root/
    Ce fichier compose orchestre les services SVM, VGG19, frontend, orchestrateur et Jenkins.
 
 2. **Accès aux services**:
-   - Frontend: `http://localhost:3000`
+   - Frontend: `http://localhost:5000`
    - SVM_service: `http://localhost:<port_svm>`
    - VGG19_service: `http://localhost:<port_vgg19>`
    - Jenkins: `http://localhost:8080`

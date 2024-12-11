@@ -36,15 +36,12 @@ class AudioProcessingError(Exception):
 @app.route('/predict_svm', methods=['POST'])
 def predict_svm():
     try:
-        # Get the audio data from the request
         data = request.json.get('wav_music')
         if not data:
             return jsonify({'error': 'Aucun fichier audio fourni'}), 400
         
-        # Decode the Base64 audio data
         audio_data = base64.b64decode(data)
         
-        # Call the predict_genre function with the decoded audio data
         predicted_genre = predict_genre(audio_data, svm_model)
         
         return jsonify({'genre': predicted_genre})

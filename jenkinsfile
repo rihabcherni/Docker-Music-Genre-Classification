@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         SHARED_VOLUME = "C:\\Nouvarch\\shared_volume"
-        REPORT_DIR = 'reports' // Répertoire des rapports
+        REPORT_DIR = 'reports' 
     }
 
     stages {
@@ -35,44 +35,30 @@ pipeline {
             }
         }
         stage('Run Tests') {
-    steps {
-        echo 'Starting unit tests for SVM Service...'
+            steps {
+                echo 'Starting unit tests for SVM Service...'
+                echo 'Running tests for SVM Service located at /app/tests/test_svm.py'    
+                bat """
+                    docker run --rm -v "%WORKSPACE%/SVM_service:/app" -v "%WORKSPACE%/reports:/reports" devops-app/svm-service:latest ^
+                        bash -c "export PYTHONPATH=/app && python /app/tests/test_svm.py"
+                """
+                echo 'Finished running unit tests for SVM Service. Check reports/test_svm_results.xml for output.'
 
-        // Debugging message before running tests
-        echo 'Running tests for SVM Service located at /app/tests/test_svm.py'
-
-    
-        bat """
-            docker run --rm -v "%WORKSPACE%/SVM_service:/app" -v "%WORKSPACE%/reports:/reports" devops-app/svm-service:latest ^
-                bash -c "export PYTHONPATH=/app && python /app/tests/test_svm.py"
-        """
-    
-
-        // Debugging message after running tests
-        echo 'Finished running unit tests for SVM Service. Check reports/test_svm_results.xml for output.'
-
-        echo 'Starting unit tests for VGG19 Service...'
-
-        // Debugging message before running tests
-        echo 'Running tests for VGG19 Service located at /app/tests/test_vgg.py'
-
-         bat """
-            docker run --rm -v "%WORKSPACE%/VGG19_service:/app" -v "%WORKSPACE%/reports:/reports" devops-app/vgg19-service:latest ^
-                bash -c "export PYTHONPATH=/app && python /app/tests/test_vgg.py"
-        """
-
-        // Debugging message after running tests
-        echo 'Finished running unit tests for VGG19 Service. Check reports/test_vgg_results.xml for output.'
-    }
-}
-stage('Verify Test Reports') {
-    steps {
-        echo 'Checking if test reports were generated...'
-        bat 'dir %WORKSPACE%\\reports'
-    }
-}
-
-
+                echo 'Starting unit tests for VGG19 Service...'
+                echo 'Running tests for VGG19 Service located at /app/tests/test_vgg.py'
+                bat """
+                    docker run --rm -v "%WORKSPACE%/VGG19_service:/app" -v "%WORKSPACE%/reports:/reports" devops-app/vgg19-service:latest ^
+                        bash -c "export PYTHONPATH=/app && python /app/tests/test_vgg.py"
+                """
+                echo 'Finished running unit tests for VGG19 Service. Check reports/test_vgg_results.xml for output.'
+            }
+        }
+        stage('Verify Test Reports') {
+            steps {
+                echo 'Checking if test reports were generated...'
+                bat 'dir %WORKSPACE%\\reports'
+            }
+        }
         stage('Start Services') {
             steps {
                 echo 'Starting all services...'
@@ -83,17 +69,17 @@ stage('Verify Test Reports') {
             steps {
                 script {
                     echo 'Publishing test results...'
-                    junit 'reports/*.xml' // Publication des fichiers de test XML
+                    junit 'reports/*.xml' 
                 }
             }
         }
     }
 
     post {
-        always {
-            echo 'Cleaning up...'
-            bat 'docker-compose -f docker-compose.yml down'
-        }
+        // always {
+        //     echo 'Cleaning up...'
+        //     bat 'docker-compose -f docker-compose.yml down'
+        // }
         success {
             echo 'Pipeline completed successfully!'
         }
