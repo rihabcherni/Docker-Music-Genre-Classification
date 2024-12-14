@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Genre Classification</title>
-    <!-- Lien vers le fichier CSS externe -->
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
     <h1>Music Genre Classification</h1>
     <div class="classification-container">
-        <!-- SVM Classification Card -->
         <div class="card">
             <h2>SVM Classification</h2>
             <form id="svm-form" action="/classify_svm" method="post" enctype="multipart/form-data">
@@ -21,7 +19,6 @@
             <p id="svm_result">SVM Result: </p>
         </div>
 
-        <!-- VGG19 Classification Card -->
         <div class="card">
             <h2>VGG19 Classification</h2>
             <form id="vgg-form" action="/classify_vgg19" method="post" enctype="multipart/form-data">

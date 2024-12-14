@@ -4,7 +4,6 @@ import requests
 
 app = Flask(__name__)
 
-# Define the URLs for your SVM and VGG19 services
 SVM_SERVICE_URL = "http://svm_service:5001/predict_svm"
 VGG19_SERVICE_URL = "http://vgg19_service:5002/predict_vgg"
 
@@ -14,7 +13,6 @@ def index():
 
 @app.route('/classify_svm', methods=['POST'])
 def classify_svm():
-    # Handle SVM classification
     wav_file = request.files.get('wav_file')
 
     if not wav_file:

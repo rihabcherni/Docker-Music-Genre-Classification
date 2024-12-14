@@ -8,15 +8,12 @@ import xmlrunner
 
 app = Flask(__name__)
 
-# Charger le modèle SVM
 with open("model/svm_model.pkl", "rb") as f:
     svm_model = pickle.load(f)
 
-# Genres list (same order as in your training data)
 genres = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
 
 def predict_genre(audio_data, clf):
-    # Load and preprocess the audio file
     signal, rate = librosa.load(BytesIO(audio_data))
     hop_length = 512
     n_fft = 2048
@@ -25,11 +22,9 @@ def predict_genre(audio_data, clf):
     S_DB = librosa.power_to_db(S, ref=np.max)
     S_DB = S_DB.flatten()[:1200]
 
-    # Predict the genre
     genre_label = clf.predict([S_DB])[0]
     return genres[genre_label]
 
-# Classe pour l'erreur de traitement
 class AudioProcessingError(Exception):
     pass
 
