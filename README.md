@@ -1,4 +1,4 @@
-# 🎶 Mini Project: Docker Architecture for Music Genre Classification
+# 🎶 Docker Architecture for Music Genre Classification
 
 #### Université de Tunis – École Nationale Supérieure d'Ingénieurs de Tunis (ENSIT)
 - **Course**: Nouvelles Architectures
