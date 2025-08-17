@@ -1,5 +1,11 @@
 # 🎶 Docker Architecture for Music Genre Classification
 
+* Docker-based architecture
+* ML model selection & implementation (SVM & VGG19)
+* Flask service design & integration
+* Deployment steps
+* Test results & evaluations
+  
 #### Université de Tunis – École Nationale Supérieure d'Ingénieurs de Tunis (ENSIT)
 - **Course**: Nouvelles Architectures
 - **Submission Date**: December 12, 2024
@@ -7,7 +13,7 @@
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 This project implements a **Docker-based architecture** for music genre classification using **Flask microservices**, a **frontend application**, and **Jenkins CI/CD integration**.
 
@@ -59,7 +65,7 @@ project-root/
 
 ---
 
-## 📑 Content Details
+## Content Details
 
 * **data**: Contains the GTZAN dataset and test WAV files.
 * **services/SVM\_service**: Flask API for classification using a pre-trained SVM model.
@@ -71,7 +77,7 @@ project-root/
 
 ---
 
-## 🚀 Deployment Instructions
+## Deployment Instructions
 
 1. **Build & Run containers**
 
@@ -96,7 +102,7 @@ docker-compose up --build
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 ### Frontend Interface
 
@@ -111,15 +117,3 @@ docker-compose up --build
   <img src="screenshots/Pipeline2.PNG" width="70%">
   <img src="screenshots/test.PNG" width="70%">
 </p>
-
----
-
-## 📝 Report
-
-The final **10-page report** includes:
-
-* Docker-based architecture explanation
-* ML model selection & implementation (SVM & VGG19)
-* Flask service design & integration
-* Deployment steps
-* Test results & evaluations
