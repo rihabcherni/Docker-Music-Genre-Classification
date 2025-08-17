@@ -101,13 +101,15 @@ docker-compose up --build
 ### Frontend Interface
 
 <p align="center">
-  <img src="screenshots/frontend-ui.png" width="70%">
+  <img src="screenshots/interface.jpg" width="70%">
 </p>
 
 ### Jenkins Pipeline
 
 <p align="center">
-  <img src="screenshots/jenkins-pipeline.png" width="70%">
+  <img src="screenshots/Pipeline.PNG" width="70%">
+  <img src="screenshots/Pipeline2.PNG" width="70%">
+  <img src="screenshots/test.PNG" width="70%">
 </p>
 
 ---
