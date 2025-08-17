@@ -1,125 +1,123 @@
-### Mini Projet: Architecture Docker pour la Classification des Genres Musicaux
+# 🎶 Mini Project: Docker Architecture for Music Genre Classification
 
-#### Université de Tunis, École nationale supérieure d'ingénieurs de Tunis (ENSIT)
-- **Projet**: Nouvelles Architectures
-- **Date de remise**: 12 Décembre 2024
+#### Université de Tunis – École Nationale Supérieure d'Ingénieurs de Tunis (ENSIT)
+- **Course**: Nouvelles Architectures
+- **Submission Date**: December 12, 2024
 - **Section**: 3GInfo
 
 ---
 
-### Structure des fichiers et des dossiers
+## 📂 Project Structure
 
-Voici une proposition de structure de fichiers et de dossiers pour ce projet, qui inclut les services Flask, le frontend, Docker Compose, et l'intégration avec Jenkins.
+This project implements a **Docker-based architecture** for music genre classification using **Flask microservices**, a **frontend application**, and **Jenkins CI/CD integration**.
 
-```plaintext
+````plaintext
 project-root/
 │
-├── data/                       # Dataset et fichiers WAV pour les tests
-│   └── gtzan/                  # Dataset GTZAN téléchargé (organisé par genre)
+├── data/                       
+│   └── gtzan/                  
 │
 ├── services/
-│   ├── SVM_service/            # Service Flask utilisant le modèle SVM
-│   │   ├── app.py              # Application Flask pour le service SVM
-│   │   ├── model/              # Modèles ML (ex. SVM) et prétraitement des données
-│   │   │   └── svm_model.pkl   # Modèle SVM pré-entrainé
-│   │   ├── Dockerfile          # Dockerfile pour le service SVM
-│   │   └── requirements.txt    # Dépendances Python pour le service SVM
+│   ├── SVM_service/            
+│   │   ├── app.py              
+│   │   ├── model/              
+│   │   │   └── svm_model.pkl   
+│   │   ├── Dockerfile          
+│   │   └── requirements.txt    
 │   │
-│   ├── VGG19_service/          # Service Flask utilisant le modèle VGG19
-│   │   ├── app.py              # Application Flask pour le service VGG19
-│   │   ├── model/              # Modèles ML (ex. VGG19) et prétraitement des données
-│   │   │   └── vgg19_model.h5  # Modèle VGG19 pré-entrainé
-│   │   ├── Dockerfile          # Dockerfile pour le service VGG19
-│   │   └── requirements.txt    # Dépendances Python pour le service VGG19
+│   ├── VGG19_service/          
+│   │   ├── app.py              
+│   │   ├── model/              
+│   │   │   └── vgg19_model.h5  
+│   │   ├── Dockerfile          
+│   │   └── requirements.txt    
 │
-├── frontend/                   # Application frontend (ex. React, Vue, etc.)
+├── frontend/                   
 │   ├── src/
-│   │   ├── components/         # Composants front-end pour l'interface utilisateur
-│   │   ├── App.js              # Fichier principal de l'application
-│   │   ├── index.js            # Point d'entrée de l'application
+│   │   ├── components/         
+│   │   ├── App.js              
+│   │   ├── index.js            
 │   ├── public/
-│   │   └── index.html          # Page HTML principale
-│   ├── Dockerfile              # Dockerfile pour le frontend
-│   └── package.json            # Dépendances du frontend
+│   │   └── index.html          
+│   ├── Dockerfile              
+│   └── package.json            
 │
-├── orchestrator/               # Conteneur de coordination des services Flask
-│   ├── app.py                  # Application pour appeler les deux services ML
-│   ├── Dockerfile              # Dockerfile pour le conteneur d'orchestration
-│   └── requirements.txt        # Dépendances Python pour le conteneur d'orchestration
+├── orchestrator/               
+│   ├── app.py                  
+│   ├── Dockerfile              
+│   └── requirements.txt        
 │
 ├── jenkins/
-│   ├── Dockerfile              # Dockerfile pour configurer Jenkins
-│   └── jenkinsfile             # Script Jenkins pour CI/CD
+│   ├── Dockerfile              
+│   └── jenkinsfile             
 │
-├── docker-compose.yml          # Fichier de configuration pour orchestrer tous les conteneurs
-├── README.md                   # Instructions pour installer et lancer le projet
-└── report/                     # Rapport final du projet
-    └── rapport.pdf             # Rapport PDF de 10 pages
+├── docker-compose.yml          
+├── README.md                   
+└── report/                     
+    └── rapport.pdf             
+`````
+
+---
+
+## 📑 Content Details
+
+* **data**: Contains the GTZAN dataset and test WAV files.
+* **services/SVM\_service**: Flask API for classification using a pre-trained SVM model.
+* **services/VGG19\_service**: Flask API for classification using a pre-trained VGG19 model.
+* **frontend**: Web interface to interact with Flask services and display predictions.
+* **orchestrator**: Handles requests and aggregates results from SVM and VGG19 services.
+* **jenkins**: CI/CD pipeline setup with Jenkins.
+* **docker-compose.yml**: Defines services, networks, and volumes for orchestration.
+
+---
+
+## 🚀 Deployment Instructions
+
+1. **Build & Run containers**
+
+```bash
+docker-compose up --build
 ```
 
----
+2. **Access the services**
 
-### Détails des Contenus
+* Frontend: `http://localhost:5000`
+* SVM Service: `http://localhost:<svm_port>`
+* VGG19 Service: `http://localhost:<vgg19_port>`
+* Jenkins: `http://localhost:8080`
 
-1. **data**:
-   - Stocke le dataset GTZAN et d'autres fichiers nécessaires pour les tests.
+3. **CI/CD with Jenkins**
 
-2. **services/SVM_service**:
-   - Contient le service Flask pour la classification des genres musicaux utilisant un modèle SVM.
-   - `app.py`: endpoint Flask pour prédire le genre musical à partir d'un fichier `wav` en base64.
-   - `model/svm_model.pkl`: modèle SVM pré-entrainé pour la classification.
-   - `Dockerfile`: installe les dépendances, expose le port du service.
+* Jenkins automatically builds, tests, and deploys services.
 
-3. **services/VGG19_service**:
-   - Contient le service Flask pour la classification des genres musicaux utilisant un modèle VGG19.
-   - `app.py`: endpoint Flask pour prédire le genre musical à partir d'un fichier `wav` en base64.
-   - `model/vgg19_model.h5`: modèle VGG19 pré-entrainé.
-   - `Dockerfile`: installe les dépendances, expose le port du service.
+4. **Testing the app**
 
-4. **frontend**:
-   - Frontend simple pour appeler les services Flask et afficher les résultats de la classification.
-   - `Dockerfile`: construit et sert l'application.
-
-5. **orchestrator**:
-   - Conteneur qui orchestre les appels aux services SVM et VGG19.
-   - `app.py`: contient les routes pour appeler et combiner les résultats des deux services.
-
-6. **jenkins**:
-   - Contient le Dockerfile et les configurations pour Jenkins.
-   - `jenkinsfile`: script Jenkins pour automatiser l'intégration, le déploiement et les tests des services.
-
-7. **docker-compose.yml**:
-   - Décrit les services, volumes et réseaux pour orchestrer les conteneurs des services ML, frontend, orchestrateur et Jenkins.
+* Use Jenkins pipelines to validate API endpoints and model predictions.
 
 ---
 
-### Instructions de Déploiement
+## 📸 Screenshots
 
-1. **Build et lancement des conteneurs**:
-   ```bash
-   docker-compose up --build
-   ```
-   Ce fichier compose orchestre les services SVM, VGG19, frontend, orchestrateur et Jenkins.
+### Frontend Interface
 
-2. **Accès aux services**:
-   - Frontend: `http://localhost:5000`
-   - SVM_service: `http://localhost:<port_svm>`
-   - VGG19_service: `http://localhost:<port_vgg19>`
-   - Jenkins: `http://localhost:8080`
+<p align="center">
+  <img src="screenshots/frontend-ui.png" width="70%">
+</p>
 
-3. **Jenkins CI/CD**:
-   - Jenkins déploie les conteneurs automatiquement, teste les endpoints, et peut déployer des versions à jour.
+### Jenkins Pipeline
 
-4. **Tests de l'application**:
-   - Utiliser Jenkins pour exécuter des tests automatisés et valider le fonctionnement de chaque service.
+<p align="center">
+  <img src="screenshots/jenkins-pipeline.png" width="70%">
+</p>
 
 ---
 
-### Remarque sur le Rapport
+## 📝 Report
 
-Le rapport de 10 pages détaillera:
-- L'architecture Docker mise en place
-- Les choix de modèles et méthodes ML
-- Les services web Flask et leur implémentation
-- Les étapes pour configurer et déployer l'application
-- Les résultats des tests et des évaluations# devops-app
+The final **10-page report** includes:
+
+* Docker-based architecture explanation
+* ML model selection & implementation (SVM & VGG19)
+* Flask service design & integration
+* Deployment steps
+* Test results & evaluations
